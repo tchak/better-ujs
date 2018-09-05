@@ -47,7 +47,7 @@ export function getJSON(url, data) {
 }
 
 function prepareOptions({ dataType, data, ...options }) {
-  if (options.crossDomain === true || isCrossDomain(options.url)) {
+  if (options.crossDomain !== true && !isCrossDomain(options.url)) {
     options.headers['x-requested-with'] = 'XMLHttpRequest';
   }
   options.method = options.method ? options.method.toUpperCase() : 'GET';
@@ -155,11 +155,11 @@ export function isCrossDomain(url) {
     // (should only be the case for IE7 and IE compatibility mode).
     // Otherwise, evaluate protocol and host of the URL against the origin
     // protocol and host.
-    crossDomainURLCache[url] = !(
-      ((!urlAnchor.protocol || urlAnchor.protocol == ':') && !urlAnchor.host) ||
-      originAnchor.protocol + '//' + originAnchor.host ==
-        urlAnchor.protocol + '//' + urlAnchor.host
-    );
+    let noProtocol =
+      (!urlAnchor.protocol || urlAnchor.protocol == ':') && !urlAnchor.host;
+    let originURL = `${originAnchor.protocol}//${originAnchor.host}`;
+    let anchorURL = `${urlAnchor.protocol}//${urlAnchor.host}`;
+    crossDomainURLCache[url] = !(noProtocol || originURL === anchorURL);
   } catch (e) {
     // If there is an error parsing the URL, assume it is crossDomain.
     crossDomainURLCache[url] = true;
