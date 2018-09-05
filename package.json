@@ -1,0 +1,33 @@
+{
+  "name": "better-ujs",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "src/index.js",
+  "author": "Paul Chavard",
+  "license": "MIT",
+  "dependencies": {
+    "custom-event-polyfill": "^1.0.6",
+    "debounce": "^1.2.0",
+    "delegated-events": "^1.0.9",
+    "es6-promise": "^4.2.4",
+    "es6-weak-map": "^2.0.2",
+    "jquery-param": "^1.0.1",
+    "whatwg-fetch": "^2.0.4"
+  },
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "bundle": "rollup -c",
+    "test": "testem ci"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "rollup": "^0.65.1",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.6",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "testem": "^2.10.0"
+  }
+}
