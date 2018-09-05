@@ -1,2 +1,5 @@
-# better-ujs
-Better ujs adapter inspired by rails-ujs
+better-ujs
+==============================================================================
+
+[![Build Status](https://travis-ci.org/tchak/better-ujs.svg?branch=master)](https://travis-ci.org/tchak/better-ujs)
+[![npm version](https://badge.fury.io/js/better-ujs.svg)](https://badge.fury.io/js/better-ujs)
