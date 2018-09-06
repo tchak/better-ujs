@@ -28,8 +28,7 @@ export function matches(element, selector) {
 const expando = '_ujsData';
 
 export function getData(element, key) {
-  element.getAttribute(`data-${key}`) ||
-    (element[expando] && element[expando][key]);
+  return element[expando] && element[expando][key];
 }
 
 export function setData(element, key, value) {
@@ -49,6 +48,6 @@ export function getMetaContent(name) {
 
 // a wrapper for document.querySelectorAll
 // returns an Array
-export function $(selector) {
+export function find(selector) {
   return [...document.querySelectorAll(selector)];
 }

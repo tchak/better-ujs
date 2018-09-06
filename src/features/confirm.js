@@ -6,11 +6,6 @@ export function handleConfirm(e) {
   }
 }
 
-// Default confirm dialog, may be overridden with custom confirm dialog in Rails.confirm
-export function confirm(message /*, element*/) {
-  window.confirm(message);
-}
-
 // For 'data-confirm' attribute:
 // - Fires `confirm` event
 // - Shows the confirmation dialog
@@ -29,7 +24,7 @@ function allowAction(element) {
   let answer, callback;
   if (fire(element, 'confirm')) {
     try {
-      answer = confirm(message, element);
+      answer = confirm(message);
     } catch (e) {
       answer = false;
     }

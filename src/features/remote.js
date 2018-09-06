@@ -1,13 +1,9 @@
 import debounce from 'debounce';
 import { matches, getData, setData, removeData } from '../utils/dom';
 import { fire, stopEverything } from '../utils/event';
-import ajax, { href } from '../utils/ajax';
-import { serializeElement } from '../utils/form';
-import {
-  formSubmitSelector,
-  buttonClickSelector,
-  inputChangeSelector
-} from '../utils/selectors';
+import ajax from '../utils/ajax';
+import { serializeElement, serializeFormElement } from '../utils/form';
+import { formSubmitSelector } from '../utils/selectors';
 
 const DEFAULT_DEBOUNCE = 200;
 
@@ -76,34 +72,22 @@ function handleRemote(e) {
       url = url.replace(/\?.*$/, '');
     }
 
-    if (element.enctype === 'multipart/form-data') {
-      data = new FormData(element);
-      if (button) {
-        data.append(button.name, button.value);
-      }
-    } else {
-      data = serializeElement(element, button);
-    }
+    data = serializeFormElement(element, button);
 
     removeData(element, 'ujs:submit-button');
     removeData(element, 'ujs:submit-button-formmethod');
     removeData(element, 'ujs:submit-button-formaction');
-  } else if (
-    matches(element, buttonClickSelector) ||
-    matches(element, inputChangeSelector)
-  ) {
-    method = element.getAttribute('data-method');
-    url = element.getAttribute('data-url');
-    data = serializeElement(element, element.getAttribute('data-params'));
   } else {
+    let isAnchor = matches(element, 'a');
+    let params = element.getAttribute('data-params');
     method = element.getAttribute('data-method');
-    url = href(element);
-    data = element.getAttribute('data-params');
+    url = isAnchor ? element.href : element.getAttribute('data-url');
+    data = isAnchor ? params : serializeElement(element, params);
   }
 
   ajax({
-    method,
     url,
+    method,
     data,
     dataType,
     // stopping the "ajax:beforeSend" event will cancel the ajax request

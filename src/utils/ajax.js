@@ -133,11 +133,6 @@ function parseXML(type, response) {
   }
 }
 
-// Default way to get an element's href. May be overridden at Rails.href.
-export function href(element) {
-  return element.href;
-}
-
 const crossDomainURLCache = {};
 
 // Determines if the request is a cross domain request.

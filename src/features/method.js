@@ -1,5 +1,5 @@
 import { stopEverything } from '../utils/event';
-import { href as getHref, isCrossDomain } from '../utils/ajax';
+import { isCrossDomain } from '../utils/ajax';
 import {
   csrfToken as getCsrfToken,
   csrfParam as getCsrfParam
@@ -15,7 +15,7 @@ export function handleMethod(e) {
     return false;
   }
 
-  let href = getHref(link);
+  let href = link.href;
   let csrfToken = getCsrfToken();
   let csrfParam = getCsrfParam();
   let form = document.createElement('form');

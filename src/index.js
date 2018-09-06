@@ -1,6 +1,6 @@
+import { on as delegate } from 'delegated-events';
 import './polyfills';
-import { delegate } from './utils/event';
-import { getData, $ } from './utils/dom';
+import { getData, find } from './utils/dom';
 import { refreshCSRFTokens } from './utils/csrf';
 import {
   enableElement,
@@ -27,12 +27,11 @@ import {
   buttonDisableSelector
 } from './utils/selectors';
 
-import { fixSafari11 } from './safari-11-file-xhr-workaround';
-
 export { delegate };
+export { fire } from './utils/event';
 export { CSRFProtection } from './utils/csrf';
 export { default as ajax, getJSON } from './utils/ajax';
-export { $, matches } from './utils/dom';
+export { matches } from './utils/dom';
 
 export default function start() {
   // This event works the same as the load event, except that it fires every
@@ -40,7 +39,7 @@ export default function start() {
   // See https://github.com/rails/jquery-ujs/issues/357
   // See https://developer.mozilla.org/en-US/docs/Using_Firefox_1.5_caching
   window.addEventListener('pageshow', () => {
-    $(`${formEnableSelector}, ${linkDisableSelector}`)
+    find(`${formEnableSelector}, ${linkDisableSelector}`)
       .filter(el => getData(el, 'ujs:disabled'))
       .forEach(enableElement);
   });
@@ -83,10 +82,8 @@ export default function start() {
   delegate('click', formInputClickSelector, formSubmitButtonClick);
 
   document.addEventListener('DOMContentLoaded', refreshCSRFTokens);
-
-  fixSafari11();
 }
 
 function disableElementWithTimeout(e) {
-  setTimeout(() => disableElement(e), 13);
+  setTimeout(() => disableElement(e), 10);
 }

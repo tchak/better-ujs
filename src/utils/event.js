@@ -1,5 +1,3 @@
-import { on as delegate, off } from 'delegated-events';
-
 // Triggers a custom event on an element and returns false if the event result is false
 // obj::
 //   a native DOM element
@@ -25,5 +23,3 @@ export function stopEverything(e) {
   e.stopPropagation();
   e.stopImmediatePropagation();
 }
-
-export { delegate, off };

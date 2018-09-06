@@ -1,4 +1,4 @@
-import { matches, $ } from './dom';
+import { matches, find, setData, getData, removeData } from './dom';
 
 export function serializeElement(element, additionalParam) {
   let inputs = [element];
@@ -50,6 +50,38 @@ export function formElements(form, selector) {
   if (matches(form, 'form')) {
     return [...form.elements].filter(el => matches(el, selector));
   } else {
-    return $(selector);
+    return find(selector);
   }
+}
+
+export function serializeFormElement(element, button) {
+  if (element.enctype === 'multipart/form-data') {
+    disableEmptyFileInputs(element);
+    let data = new FormData(element);
+    enableEmptyFileInputs(element);
+    if (button) {
+      data.append(button.name, button.value);
+    }
+    return data;
+  } else {
+    return serializeElement(element, button);
+  }
+}
+
+function disableEmptyFileInputs(element) {
+  find(element, 'input[type="file"]:not([disabled])')
+    .filter(input => input.files.length > 0)
+    .forEach(input => {
+      setData(input, 'ujs:temp-disabled', true);
+      input.disabled = true;
+    });
+}
+
+function enableEmptyFileInputs(element) {
+  find(element, 'input[type="file"]')
+    .filter(input => getData(input, 'ujs:temp-disabled'))
+    .forEach(input => {
+      removeData(input, 'ujs:temp-disabled');
+      input.disabled = false;
+    });
 }
