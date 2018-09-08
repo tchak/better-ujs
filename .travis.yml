@@ -16,4 +16,5 @@ cache:
   yarn: true
 
 script:
+  - yarn lint:js
   - yarn test

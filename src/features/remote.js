@@ -46,9 +46,14 @@ export { handleRemoteWithDebounce as handleRemote };
 function handleRemote(e) {
   let element = this;
 
-  removeData(element, 'ujs:debounce');
-
   if (!fire(element, 'ajax:before')) {
+    fire(element, 'ajax:stopped');
+    return;
+  }
+
+  let format = element.getAttribute('data-format');
+  let isInput = matches(element, 'input');
+  if (isInput && format && !new RegExp(format).test(element.value)) {
     fire(element, 'ajax:stopped');
     return;
   }

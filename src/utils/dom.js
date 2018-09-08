@@ -1,11 +1,3 @@
-const m =
-  Element.prototype.matches ||
-  Element.prototype.matchesSelector ||
-  Element.prototype.mozMatchesSelector ||
-  Element.prototype.msMatchesSelector ||
-  Element.prototype.oMatchesSelector ||
-  Element.prototype.webkitMatchesSelector;
-
 // Checks if the given native dom element matches the selector
 // element::
 //   native DOM element
@@ -16,10 +8,10 @@ const m =
 export function matches(element, selector) {
   if (selector.exclude) {
     return (
-      m.call(element, selector.selector) && !m.call(element, selector.exclude)
+      element.matches(selector.selector) && !element.matches(selector.exclude)
     );
   } else {
-    return m.call(element, selector);
+    return element.matches(selector);
   }
 }
 

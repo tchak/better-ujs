@@ -38,3 +38,6 @@ export const linkDisableSelector = 'a[data-disable-with], a[data-disable]';
 // Button onClick disable selector with possible reenable after remote submission
 export const buttonDisableSelector =
   'button[data-remote][data-disable-with], button[data-remote][data-disable]';
+
+export const triggerSelector =
+  'a[data-trigger], button[data-trigger], input[data-trigger], select[data-trigger], option[data-trigger], form[data-trigger]';

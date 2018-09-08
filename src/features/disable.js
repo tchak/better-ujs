@@ -10,7 +10,7 @@ import {
 } from '../utils/selectors';
 
 export function handleDisabledElement(e) {
-  let element = this;
+  const element = this;
   if (element.disabled) {
     stopEverything(e);
   }
@@ -18,7 +18,7 @@ export function handleDisabledElement(e) {
 
 // Unified function to enable an element (link, button and form)
 export function enableElement(e) {
-  let element = e instanceof Event ? e.target : e;
+  const element = e instanceof Event ? e.target : e;
   if (matches(element, linkDisableSelector)) {
     enableLinkElement(element);
   } else if (
@@ -33,7 +33,7 @@ export function enableElement(e) {
 
 // Unified function to disable an element (link, button and form)
 export function disableElement(e) {
-  let element = e instanceof Event ? e.target : e;
+  const element = e instanceof Event ? e.target : e;
   if (matches(element, linkDisableSelector)) {
     disableLinkElement(element);
   } else if (

@@ -12,12 +12,8 @@ export default {
     resolve(),
     commonjs(),
     babel({
-      presets: [
-        ['@babel/preset-env', { modules: false }]
-      ],
-      plugins: [
-        '@babel/plugin-proposal-object-rest-spread'
-      ],
+      presets: [['@babel/preset-env', { modules: false }]],
+      plugins: ['@babel/plugin-proposal-object-rest-spread'],
       exclude: 'node_modules/**'
     })
   ]

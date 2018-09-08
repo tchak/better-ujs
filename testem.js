@@ -2,11 +2,9 @@ module.exports = {
   framework: 'qunit',
   before_tests: 'yarn bundle',
   after_tests: 'rm -rf dist/bundle.js',
-  src_files: [
-    'src/**/*.js',
-    'test/**/*.js'
-  ],
+  src_files: ['src/**/*.js', 'test/**/*.js'],
   serve_files: [
+    'https://unpkg.com/qunit-dom/dist/qunit-dom.js',
     'dist/bundle.js'
   ],
   disable_watching: true,
