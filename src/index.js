@@ -28,9 +28,10 @@ import {
   handlePrependElement,
   handleEmptyElement,
   handleRemoveElement,
-  handleReplaceText,
-  handleSetData
+  handleReplaceText
 } from './features/dom';
+
+import { handleSetData } from './features/data';
 
 import {
   linkClickSelector,

@@ -1,6 +1,3 @@
-import { getData, setData } from '../utils/dom';
-import { fire } from '../utils/event';
-
 export function handleAddClass({ detail }) {
   this.className.add(...toArray(detail));
 }
@@ -70,15 +67,6 @@ export function handleRemoveElement() {
 
 export function handleEmptyElement() {
   this.innerHTML = '';
-}
-
-export function handleSetData({ detail }) {
-  const element = this;
-  let data = getData(element, 'ujs:page-data');
-  if (data !== detail) {
-    setData(element, 'ujs:page-data', detail);
-    fire(element, 'data:change', detail);
-  }
 }
 
 function toArray(classList) {
