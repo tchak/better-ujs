@@ -121,11 +121,11 @@ export default function start({ customEvents, hideClassName } = {}) {
   document.addEventListener('dom:class:toggle', bindEvent(handleToggleClass));
 
   document.addEventListener(
-    'dom:html:replace:inner',
+    'dom:html:replace',
     bindEvent(handleReplaceInnerHtml)
   );
   document.addEventListener(
-    'dom:html:replace',
+    'dom:html:replace:outer',
     bindEvent(handleReplaceOuterHtml)
   );
 
