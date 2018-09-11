@@ -21,11 +21,22 @@ test('ujs', function(assert) {
 
 test('ujs#start()', function(assert) {
   start();
-  html('<a id=link data-trigger="dom:element:remove"></a>');
+  on('remove', function() {
+    this.parentElement.removeChild(this);
+  });
+  html('<a id=link data-trigger="remove"></a>');
   assert.ok(query('#link'));
   fire(query('#link'), 'click');
   assert.ok(!query('#link'));
 });
+
+function on(eventName, fn) {
+  document
+    .querySelector('#qunit-fixture')
+    .addEventListener(eventName, function(event) {
+      fn.call(event.target, event);
+    });
+}
 
 function html(html) {
   document.querySelector('#qunit-fixture').innerHTML = html;

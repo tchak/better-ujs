@@ -2,7 +2,6 @@ import { on as delegate } from 'delegated-events';
 import './polyfills';
 import { getData, find } from './utils/dom';
 import { refreshCSRFTokens } from './utils/csrf';
-import { fire } from './utils/event';
 import {
   enableElement,
   disableElement,
@@ -16,22 +15,6 @@ import {
 } from './features/remote';
 import { handleMethod } from './features/method';
 import { handleTrigger } from './features/trigger';
-import {
-  handleAddClass,
-  handleRemoveClass,
-  handleToggleClass,
-  handleReplaceInnerHtml,
-  handleReplaceOuterHtml,
-  handleAfterElement,
-  handleBeforeElement,
-  handleAppendElement,
-  handlePrependElement,
-  handleEmptyElement,
-  handleRemoveElement,
-  handleReplaceText
-} from './features/dom';
-
-import { handleSetData } from './features/data';
 
 import {
   linkClickSelector,
@@ -51,7 +34,7 @@ export { fire } from './utils/event';
 export { CSRFProtection } from './utils/csrf';
 export { default as ajax, getJSON } from './utils/ajax';
 
-const DOM_EVENTS = ['click', 'submit', 'change', 'input', 'data:change'];
+const DOM_EVENTS = ['click', 'submit', 'change', 'input'];
 const AJAX_EVENTS = [
   'ajax:before',
   'ajax:beforeSend',
@@ -60,7 +43,7 @@ const AJAX_EVENTS = [
   'ajax:stopped'
 ];
 
-export default function start({ customEvents, hideClassName } = {}) {
+export default function start({ customEvents } = {}) {
   // This event works the same as the load event, except that it fires every
   // time the page is loaded.
   // See https://github.com/rails/jquery-ujs/issues/357
@@ -114,71 +97,7 @@ export default function start({ customEvents, hideClassName } = {}) {
     customEvents.forEach(delegateTriggerHandler);
   }
 
-  document.addEventListener('data:set', bindEvent(handleSetData));
-
-  document.addEventListener('dom:class:add', bindEvent(handleAddClass));
-  document.addEventListener('dom:class:remove', bindEvent(handleRemoveClass));
-  document.addEventListener('dom:class:toggle', bindEvent(handleToggleClass));
-
-  document.addEventListener(
-    'dom:html:replace',
-    bindEvent(handleReplaceInnerHtml)
-  );
-  document.addEventListener(
-    'dom:html:replace:outer',
-    bindEvent(handleReplaceOuterHtml)
-  );
-
-  document.addEventListener('dom:text:replace', bindEvent(handleReplaceText));
-
-  document.addEventListener('dom:element:after', bindEvent(handleAfterElement));
-  document.addEventListener(
-    'dom:element:before',
-    bindEvent(handleBeforeElement)
-  );
-  document.addEventListener(
-    'dom:element:append',
-    bindEvent(handleAppendElement)
-  );
-  document.addEventListener(
-    'dom:element:prepend',
-    bindEvent(handlePrependElement)
-  );
-
-  document.addEventListener(
-    'dom:element:remove',
-    bindEvent(handleRemoveElement)
-  );
-  document.addEventListener('dom:element:empty', handleEmptyElement);
-
-  hideClassName = hideClassName || 'display-none';
-
-  document.addEventListener(
-    'dom:element:show',
-    redirectEvent('dom:class:remove', hideClassName)
-  );
-  document.addEventListener(
-    'dom:element:hide',
-    redirectEvent('dom:class:add', hideClassName)
-  );
-  document.addEventListener(
-    'dom:element:toggle',
-    redirectEvent('dom:class:toggle', hideClassName)
-  );
-
   document.addEventListener('DOMContentLoaded', refreshCSRFTokens);
-}
-
-function bindEvent(handler) {
-  return function(e) {
-    handler.call(e.target, e);
-  };
-}
-
-function redirectEvent(eventName, data) {
-  return function({ target: element }) {
-    fire(element, eventName, data);
-  };
 }
 
 function delegateTriggerHandler(eventName) {

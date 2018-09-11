@@ -38,8 +38,6 @@ export function getMetaContent(name) {
   return meta && meta.content;
 }
 
-// a wrapper for document.querySelectorAll
-// returns an Array
 export function find(selector) {
   return [...document.querySelectorAll(selector)];
 }

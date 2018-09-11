@@ -40,4 +40,4 @@ export const buttonDisableSelector =
   'button[data-remote][data-disable-with], button[data-remote][data-disable]';
 
 export const triggerSelector =
-  'a[data-trigger], button[data-trigger], input[data-trigger], select[data-trigger], option[data-trigger], form[data-trigger]';
+  'a[data-trigger], button[data-trigger], input[data-trigger], select[data-trigger], form[data-trigger], body[data-trigger]';
