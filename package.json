@@ -6,7 +6,6 @@
   "author": "Paul Chavard",
   "license": "MIT",
   "dependencies": {
-    "custom-event-polyfill": "^1.0.6",
     "debounce": "^1.2.0",
     "delegated-events": "^1.0.9",
     "jquery-param": "^1.0.1",

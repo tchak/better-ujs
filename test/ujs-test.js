@@ -6,37 +6,29 @@ import start, {
   getJSON,
   delegate,
   fire,
-  CSRFProtection
+  CSRFProtection,
+  addCustomEvent
 } from '../src/index';
 
 test('ujs', function(assert) {
-  assert.ok(start, 'should have start');
+  assert.ok(start, 'should export start');
 
-  assert.ok(ajax, 'should have ajax');
-  assert.ok(getJSON, 'should have getJSON');
-  assert.ok(delegate, 'should have delegate');
-  assert.ok(fire, 'should have fire');
-  assert.ok(CSRFProtection, 'should have CSRFProtection');
+  assert.ok(ajax, 'should export ajax');
+  assert.ok(getJSON, 'should export getJSON');
+  assert.ok(delegate, 'should export delegate');
+  assert.ok(fire, 'should export fire');
+  assert.ok(CSRFProtection, 'should export CSRFProtection');
+  assert.ok(addCustomEvent, 'should export addCustomEvent');
 });
 
 test('ujs#start()', function(assert) {
   start();
-  on('remove', function() {
-    this.parentElement.removeChild(this);
-  });
+  addCustomEvent('remove', ({ target }) => target.remove());
   html('<a id=link data-trigger="remove"></a>');
   assert.ok(query('#link'));
   fire(query('#link'), 'click');
   assert.ok(!query('#link'));
 });
-
-function on(eventName, fn) {
-  document
-    .querySelector('#qunit-fixture')
-    .addEventListener(eventName, function(event) {
-      fn.call(event.target, event);
-    });
-}
 
 function html(html) {
   document.querySelector('#qunit-fixture').innerHTML = html;

@@ -1,3 +1,4 @@
+import 'whatwg-fetch';
 import param from 'jquery-param';
 import { cspNonce } from './csp';
 import { CSRFProtection } from './csrf';

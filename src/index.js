@@ -1,5 +1,4 @@
 import { on as delegate } from 'delegated-events';
-import './polyfills';
 import { getData, find } from './utils/dom';
 import { refreshCSRFTokens } from './utils/csrf';
 import {
@@ -43,7 +42,7 @@ const AJAX_EVENTS = [
   'ajax:stopped'
 ];
 
-export default function start({ customEvents } = {}) {
+export default function start() {
   // This event works the same as the load event, except that it fires every
   // time the page is loaded.
   // See https://github.com/rails/jquery-ujs/issues/357
@@ -93,11 +92,18 @@ export default function start({ customEvents } = {}) {
 
   DOM_EVENTS.forEach(delegateTriggerHandler);
   AJAX_EVENTS.forEach(delegateTriggerHandler);
-  if (customEvents) {
-    customEvents.forEach(delegateTriggerHandler);
-  }
 
   document.addEventListener('DOMContentLoaded', refreshCSRFTokens);
+}
+
+export function addCustomEvent(eventName, callback, options = {}) {
+  document.addEventListener(eventName, event => {
+    callback.call(event.target, event);
+  });
+
+  if (options.trigger) {
+    delegateTriggerHandler(eventName);
+  }
 }
 
 function delegateTriggerHandler(eventName) {
