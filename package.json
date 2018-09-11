@@ -9,8 +9,6 @@
     "custom-event-polyfill": "^1.0.6",
     "debounce": "^1.2.0",
     "delegated-events": "^1.0.9",
-    "es6-promise": "^4.2.4",
-    "es6-weak-map": "^2.0.2",
     "jquery-param": "^1.0.1",
     "whatwg-fetch": "^2.0.4"
   },
