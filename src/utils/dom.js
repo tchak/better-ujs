@@ -15,22 +15,30 @@ export function matches(element, selector) {
   }
 }
 
-// get and set data on a given element using "expando properties"
-// See: https://developer.mozilla.org/en-US/docs/Glossary/Expando
-const expando = '_ujsData';
+const elementData = new WeakMap();
 
 export function getData(element, key) {
-  return element[expando] && element[expando][key];
+  let data = elementData.get(element);
+  if (data) {
+    return data[key];
+  }
+  return;
 }
 
 export function setData(element, key, value) {
-  element[expando] = element[expando] || {};
-  element[expando][key] = value;
+  let data = elementData.get(element);
+  if (data) {
+    data[key] = value;
+  } else {
+    elementData.set(element, { [key]: value });
+  }
 }
 
 export function removeData(element, key) {
-  element[expando] = element[expando] || {};
-  delete element[expando][key];
+  let data = elementData.get(element);
+  if (data) {
+    delete data[key];
+  }
 }
 
 export function getMetaContent(name) {

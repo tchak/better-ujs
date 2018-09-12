@@ -5,7 +5,8 @@ module.exports = {
     sourceType: 'module'
   },
   globals: {
-    'Promise': true
+    'Promise': true,
+    'WeakMap': true
   },
   plugins: ['prettier'],
   extends: ['eslint:recommended', 'prettier'],
