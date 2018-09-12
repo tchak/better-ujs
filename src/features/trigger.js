@@ -1,5 +1,5 @@
 import { fire, stopEverything } from '../utils/event';
-import { find } from '../utils/dom';
+import { queryAll } from '../utils/dom';
 
 export function handleTrigger(event) {
   const element = this;
@@ -22,7 +22,7 @@ function stopDefaultEvent(event, element) {
 
 function fireTriggerEvent(element, eventName, target, param) {
   if (target) {
-    find(target).forEach(target => fire(target, eventName, param));
+    queryAll(target).forEach(target => fire(target, eventName, param));
   } else {
     fire(element, eventName, param);
   }

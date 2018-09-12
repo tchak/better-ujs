@@ -1,5 +1,5 @@
 import { on as delegate } from 'delegated-events';
-import { getData, find } from './utils/dom';
+import { getData, queryAll } from './utils/dom';
 import { refreshCSRFTokens } from './utils/csrf';
 import {
   enableElement,
@@ -48,7 +48,7 @@ export default function start() {
   // See https://github.com/rails/jquery-ujs/issues/357
   // See https://developer.mozilla.org/en-US/docs/Using_Firefox_1.5_caching
   window.addEventListener('pageshow', () => {
-    find(`${formEnableSelector}, ${linkDisableSelector}`)
+    queryAll(`${formEnableSelector}, ${linkDisableSelector}`)
       .filter(el => getData(el, 'ujs:disabled'))
       .forEach(enableElement);
   });

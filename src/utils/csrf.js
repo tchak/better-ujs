@@ -1,4 +1,4 @@
-import { getMetaContent, find } from './dom';
+import { getMetaContent, queryAll } from './dom';
 
 const CSRFTokenHeader = 'x-csrf-token';
 
@@ -29,7 +29,7 @@ export function refreshCSRFTokens() {
   let token = csrfToken();
   let param = csrfParam();
   if (token && param) {
-    find(`form input[name="${param}"]`).forEach(input => {
+    queryAll(`form input[name="${param}"]`).forEach(input => {
       input.value = token;
     });
   }

@@ -1,4 +1,4 @@
-import { matches, find, setData, getData, removeData } from './dom';
+import { matches, queryAll, setData, getData, removeData } from './dom';
 
 export function serializeElement(element, additionalParam) {
   let inputs = [element];
@@ -50,7 +50,7 @@ export function formElements(form, selector) {
   if (matches(form, 'form')) {
     return [...form.elements].filter(el => matches(el, selector));
   } else {
-    return find(selector);
+    return queryAll(selector);
   }
 }
 
@@ -69,7 +69,7 @@ export function serializeFormElement(element, button) {
 }
 
 function disableEmptyFileInputs(element) {
-  find(element, 'input[type="file"]:not([disabled])')
+  queryAll('input[type="file"]:not([disabled])', element)
     .filter(input => input.files.length > 0)
     .forEach(input => {
       setData(input, 'ujs:temp-disabled', true);
@@ -78,7 +78,7 @@ function disableEmptyFileInputs(element) {
 }
 
 function enableEmptyFileInputs(element) {
-  find(element, 'input[type="file"]')
+  queryAll('input[type="file"]', element)
     .filter(input => getData(input, 'ujs:temp-disabled'))
     .forEach(input => {
       removeData(input, 'ujs:temp-disabled');

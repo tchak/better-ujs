@@ -38,6 +38,6 @@ export function getMetaContent(name) {
   return meta && meta.content;
 }
 
-export function find(selector) {
-  return [...document.querySelectorAll(selector)];
+export function queryAll(selector, element) {
+  return [...(element || document).querySelectorAll(selector)];
 }
